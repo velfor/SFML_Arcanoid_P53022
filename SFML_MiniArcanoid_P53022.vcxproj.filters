@@ -35,10 +35,10 @@
     <ClInclude Include="brick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bricksrow.h">
+    <ClInclude Include="functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="functions.h">
+    <ClInclude Include="brickfield.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

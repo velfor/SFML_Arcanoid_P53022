@@ -4,7 +4,7 @@
 #include "bat.h"
 #include "textobj.h"
 #include "brick.h"
-#include "bricksrow.h"
+#include "brickfield.h"
 #include "functions.h"
 
 using namespace sf;
@@ -23,8 +23,8 @@ int main()
 	batInit(bat);
 	TextObj scoreText;
 	textInit(scoreText, ball.score);
-	Brickrow brickrow;
-	brickRowInit(brickrow, 10, Vector2f{0.f,60.f}, BRICK_WIDTH);
+	BrickField field;
+	brickFieldInit(field);
 	
 
 	while (window.isOpen())
@@ -40,17 +40,17 @@ int main()
 		ballUpdate(ball);
 		batUpdate(bat);
 		textUpdate(scoreText, ball.score);
-		brickRowUpdate(brickrow);
+		brickFieldUpdate(field);
 
 		//проверка столкновений
-		ballCollidedWithBricks(ball, brickrow);
+		ballCollidedWithBricks(ball,field);
 
 		//отрисовка объектов и обновление окна
 		window.clear();
+		brickFieldDraw(window, field);
 		ballDraw(window, ball);
 		batDraw(window, bat);
 		textDraw(window, scoreText);
-		brickRowDraw(window, brickrow);
 		window.display();
 	}
 

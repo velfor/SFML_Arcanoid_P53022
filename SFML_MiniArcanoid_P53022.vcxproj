@@ -130,7 +130,7 @@
     <ClInclude Include="ball.h" />
     <ClInclude Include="bat.h" />
     <ClInclude Include="brick.h" />
-    <ClInclude Include="bricksrow.h" />
+    <ClInclude Include="brickfield.h" />
     <ClInclude Include="functions.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="textobj.h" />

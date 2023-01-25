@@ -10,9 +10,12 @@ struct Brick
 };
 
 void brickInit(Brick& brick, sf::Color color, sf::Vector2f position) {
+	brick.color = color;
 	brick.shape.setSize(sf::Vector2f{ BRICK_WIDTH, BRICK_HEIGHT });
 	brick.shape.setFillColor(color);
 	brick.shape.setPosition(position);
+	brick.shape.setOutlineThickness(1.f);
+	brick.shape.setOutlineColor(sf::Color::Black);
 }
 
 void brickUpdate(Brick& brick) {}

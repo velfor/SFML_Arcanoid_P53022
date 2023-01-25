@@ -2,7 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "settings.h"
 #include "ball.h"
-#include "bricksrow.h"
+#include "brickfield.h"
 
 /*void rectInit(sf::RectangleShape& rect, const sf::Color rectColor, const sf::Vector2f rectStartPosition) {
 	rect.setSize(BAT_SIZE);
@@ -17,7 +17,7 @@ bool pointInRect(sf::RectangleShape rect, sf::Vector2f point) {
 		point.y <= rect.getPosition().y + rect.getSize().y;
 }
 
-void ballCollidedWithBricks(Ball& ball, Brickrow& brickrow) {
+void ballCollidedWithBricks(Ball& ball, BrickField& brickfield) {
 	sf::Vector2f midLeft{ 
 		ball.shape.getPosition().x, 
 		ball.shape.getPosition().y + BALL_RADIUS 
@@ -34,21 +34,52 @@ void ballCollidedWithBricks(Ball& ball, Brickrow& brickrow) {
 		ball.shape.getPosition().x + 2 * BALL_RADIUS,
 		ball.shape.getPosition().y + BALL_RADIUS 
 	};
-	for (int i = 0; i < brickrow.size; i++) {
-		//в нижнюю часть кирпича
-		if (pointInRect(brickrow.brickArr[i].shape, midTop)) {
-		//кирпич исчез
-			//помен€ли местами текущий кирпич с последним в массиве
-			std::swap(
-				brickrow.brickArr[i], 
-				brickrow.brickArr[brickrow.size-1]
-			);
-			//уменьшили размер массива
-			brickrow.size--;
-		//м€ч помен€л направление
-			ball.speedY = -ball.speedY;
-		//прервали цикл
-			break;
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLUMNS; j++) {
+			//в нижнюю часть кирпича
+			if (pointInRect(brickfield.arr[i][j].shape, midTop) && 
+				brickfield.arr[i][j].color != sf::Color::Black) {
+				//кирпич исчез, красим в цвет фона
+				brickfield.arr[i][j].color = sf::Color::Black;
+				brickfield.arr[i][j].shape.setFillColor(sf::Color::Black);
+				//м€ч помен€л направление
+				ball.speedY = -ball.speedY;
+				//прервали цикл
+				break;
+			}
+			/*//в правую часть кирпича
+			else if (pointInRect(brickfield.arr[i][j].shape, midLeft) &&
+				brickfield.arr[i][j].color != sf::Color::Black) {
+				//кирпич исчез
+				brickfield.arr[i][j].color = sf::Color::Black;
+				brickfield.arr[i][j].shape.setFillColor(sf::Color::Black);
+				//м€ч помен€л направление
+				ball.speedX = -ball.speedX;
+				//прервали цикл
+				break;
+			}
+			//в левую
+			else if (pointInRect(brickfield.arr[i][j].shape, midRight) &&
+				brickfield.arr[i][j].color != sf::Color::Black) {
+				//кирпич исчез
+				brickfield.arr[i][j].color = sf::Color::Black;
+				brickfield.arr[i][j].shape.setFillColor(sf::Color::Black);
+				//м€ч помен€л направление
+				ball.speedX = -ball.speedX;
+				//прервали цикл
+				break;
+			}
+			//в верхнюю
+			else if (pointInRect(brickfield.arr[i][j].shape, midBottom) &&
+				brickfield.arr[i][j].color != sf::Color::Black) {
+				//кирпич исчез
+				brickfield.arr[i][j].color = sf::Color::Black;
+				brickfield.arr[i][j].shape.setFillColor(sf::Color::Black);
+				//м€ч помен€л направление
+				ball.speedY = -ball.speedY;
+				//прервали цикл
+				break;
+			}*/
 		}
 	}
 	

@@ -20,10 +20,13 @@ const float BAT_SPEEDX = 5.f;
 const float BALL_RADIUS = 7.f;
 const sf::Color BALL_COLOR{ 250, 208, 0 };
 const sf::Vector2f BALL_START_POS{ (WINDOW_WIDTH - 2 * BALL_RADIUS) / 2,
-		(WINDOW_HEIGHT - 2 * BALL_RADIUS) / 2 };
+		WINDOW_HEIGHT - BAT_OFFSET - BAT_SIZE.y - BALL_RADIUS };
 
 const unsigned int FONT_SIZE = 64;
 const sf::Vector2f TEXT_POS{ 10.f, -10.f };
 
 const float BRICK_WIDTH = 80.f;
 const float BRICK_HEIGHT = 40.f;
+
+const int ROWS = 8;
+const int COLUMNS = 10;
