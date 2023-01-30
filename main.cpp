@@ -43,6 +43,7 @@ int main()
 		brickFieldUpdate(field);
 
 		//проверка столкновений
+		ballCollideWithBat(ball, bat);
 		ballCollidedWithBricks(ball,field);
 
 		//отрисовка объектов и обновление окна
