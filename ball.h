@@ -25,8 +25,7 @@ void ballUpdate(Ball& ball) {
 	if (ball.shape.getPosition().x + 2 * BALL_RADIUS >= WINDOW_WIDTH)
 		ball.speedX = -ball.speedX;
 	//м€ч отскакивает от нижней и верхней границы экрана
-	if (ball.shape.getPosition().y <= 0 ||
-		ball.shape.getPosition().y + 2 * BALL_RADIUS >= WINDOW_HEIGHT)
+	if (ball.shape.getPosition().y <= 0)
 		ball.speedY = -ball.speedY;
 }
 void ballDraw(sf::RenderWindow& window, const Ball& ball) {

@@ -6,8 +6,8 @@
 #include "brick.h"
 #include "brickfield.h"
 #include "functions.h"
-
 using namespace sf;
+enum GameState {PLAY, GAME_OVER};
 int main()
 {
 	RenderWindow window(
@@ -16,13 +16,19 @@ int main()
 		Style::Titlebar | Style::Close
 	);
 	window.setFramerateLimit(60);
-
+	
+	GameState gameState = PLAY;
+	
 	Ball ball;
 	ballInit(ball);
 	Bat bat;
 	batInit(bat);
 	TextObj scoreText;
-	textInit(scoreText, ball.score);
+	textInit(scoreText, std::to_string(ball.score), TEXT_POS);
+
+	TextObj gameOverText;
+	textInit(gameOverText, "GAME OVER", Vector2f{(WINDOW_WIDTH - 300.f)/2,
+		(WINDOW_HEIGHT-100) / 2 });
 	BrickField field;
 	brickFieldInit(field);
 	
@@ -36,23 +42,31 @@ int main()
 			if (event.type == Event::Closed)
 				window.close();
 		}
-		//обновление игровых объектов (функции update)
-		ballUpdate(ball);
-		batUpdate(bat);
-		textUpdate(scoreText, ball.score);
-		brickFieldUpdate(field);
-
-		//проверка столкновений
-		ballCollideWithBat(ball, bat);
-		ballCollidedWithBricks(ball,field);
-
-		//отрисовка объектов и обновление окна
-		window.clear();
-		brickFieldDraw(window, field);
-		ballDraw(window, ball);
-		batDraw(window, bat);
-		textDraw(window, scoreText);
-		window.display();
+		switch (gameState) {
+		case PLAY:
+			//обновление игровых объектов (функции update)
+			ballUpdate(ball);
+			if (ball.shape.getPosition().y + 2 * BALL_RADIUS >= WINDOW_HEIGHT)
+				gameState = GAME_OVER;
+			batUpdate(bat);
+			textUpdate(scoreText, ball.score);
+			brickFieldUpdate(field);
+			//проверка столкновений
+			ballCollideWithBat(ball, bat);
+			ballCollidedWithBricks(ball, field);
+			//отрисовка объектов и обновление окна
+			window.clear();
+			brickFieldDraw(window, field);
+			ballDraw(window, ball);
+			batDraw(window, bat);
+			textDraw(window, scoreText);
+			window.display();
+			break;
+		case GAME_OVER:
+			window.clear();
+			textDraw(window, gameOverText);
+			window.display();
+		}
 	}
 
 	return 0;

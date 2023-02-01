@@ -7,12 +7,12 @@ struct TextObj {
 	sf::Text text;
 };
 
-void textInit(TextObj& textobj, int score) {
+void textInit(TextObj& textobj, std::string str, sf::Vector2f position) {
 	textobj.font.loadFromFile("DS-DIGIB.ttf");
 	textobj.text.setFont(textobj.font);
-	textobj.text.setString(std::to_string(score));
+	textobj.text.setString(str);
 	textobj.text.setCharacterSize(FONT_SIZE);
-	textobj.text.setPosition(TEXT_POS);
+	textobj.text.setPosition(position);
 }
 
 void textUpdate(TextObj& textobj, int score) {
